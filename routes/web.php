@@ -51,6 +51,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
 // Ruta del dashboard de participante
 Route::middleware(['auth', 'participante'])->group(function () {
     Route::get('participante/dashboard', [ParticipanteController::class, 'index'])->name('participante.dashboard');
+
+
+    Route::get('/nivel3', function() {
+        return view('participante.Nivel-3.c_nivel3');
+    })->name('nivel3');
+    
+    Route::get('/nivel1', function() {
+        return view('participante.Nivel-1.nivel1');
+    })->name('nivel1');
+    
+    
+    Route::get('/nivel2', function() {
+        return view('participante.Nivel-2.historia_nivel2');
+    })->name('nivel2');
+    
     // Otras rutas de participante
 });
 
