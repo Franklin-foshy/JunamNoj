@@ -27,6 +27,9 @@
 
     @include ('componentes_c.barra_progreso')
 
+    <!-- gif pegunta -->
+
+    @include ('componentes_c.pregunta_gif')
 
 <!--cuaddro de juego-->
 

@@ -4,19 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/styles3.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/material-dashboard.css')}}">
-
     <title>{{_('hirtoria_nivel_2')}}</title>
 </head>
 <body>
 <!---------------------- header ------------------------>
+
 @include('componenetes_nivel2.header')
+
 <!---------------------- header ------------------------>
 
+<!---------------------- barra preogreso ------------------------>
 
-<!---------------------- mensaje corresponsabilidad ------------------------>
-@include('componenetes_nivel2.titulo_corresponsabilidad')
-<!---------------------- mensaje corresponsabilidad ------------------------>
+@include('componenetes_nivel2.barra_progreso')
+
+<!---------------------- barra preogreso ------------------------>
+
+
+<!---------------------- vidas ------------------------>
+
+<div id="vidas">
+    <span class="vida"></span>
+</div>
+
+<!---------------------- vidas ------------------------>
 
 <!------------------------------ marco historia ------------------------------------>
 
@@ -32,6 +42,7 @@
 !<!-------------------------------------- Boton siguiente --------------------------------------------->
 
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 
     <script src="{{ asset('js/historia_nivel2.js')}}"></script>
 </body>

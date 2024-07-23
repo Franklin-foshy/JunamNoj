@@ -12,6 +12,8 @@ const texto_modal = document.getElementById('texto_modal');
 const in_co = document.getElementById('in_co');
 const imagen_modal = document.getElementById('imagen_modal');
 const cerrar_modal = document.getElementById('cerrar_modal');
+const gif_pregunta = document.getElementById('gif-pregunta');
+const text_nivel = document.getElementById('nivel');
 
 
 close_modal.addEventListener('click', (e)=> {
@@ -37,6 +39,8 @@ time_teminar = setTimeout(function(){
     barra.style = 'block'
     header.style = 'block'
     cargando.style.display = 'none';
+    gif_pregunta.style.display = 'flex';
+    text_nivel.style.display = 'block';
 },1000)
 
 const questions = [
@@ -207,3 +211,9 @@ function goHome() {
 
 // Iniciar la primera pregunta
 loadQuestion();
+
+
+
+
+
+

@@ -1,24 +1,169 @@
 body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #fff;
-    overflow: auto;
 }
 
+.nivel{
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    display: block;
+    top: 12%;
+    left: 18%;
+  }
+  
+  .barra {
+    position: absolute;
+    justify-content: center;
+    top: 20%;
+    border: none;
+  }
+  
+  .barra {
+    width: 65%;
+    top: 15%;
+    height: 20px; /* Altura del contenedor de la barra de progreso */
+    background-color: #f3f3f3; /* Color de fondo del contenedor */
+    border-radius: 25px;
+    overflow: hidden;
+    margin-top: 20px; /* Espacio superior para separar la barra del contenido superior */
+  }
+  
+  /* Estilo para el contenedor interno de la barra de progreso */
+  .progress {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Estilo para la barra de progreso */
+  .progress-barra {
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: none; /* Eliminar el estilo predeterminado de los navegadores WebKit */
+    appearance: none; /* Eliminar el estilo predeterminado */
+  }
+  
+  /* Estilo para la barra de progreso en navegadores WebKit */
+  .progress-barra::-webkit-progress-bar {
+    background-color: #eeae87; /* Color de fondo del contenedor */
+    border-radius: 25px;
+  }
+  
+  .progress-barra::-webkit-progress-value {
+    background-color: #a41d23; /* Color de la barra de llenado */
+    border-radius: 25px;
+  }
+  
+  /* Estilo para la barra de progreso en navegadores Mozilla */
+  .progress-barra::-moz-progress-bar {
+    background-color: #a41d23; /* Color de la barra de llenado */
+    border-radius: 25px;
+  }
 
 .container {
-    background-image: url('../assets/img/nivel2/escena_1.jpg');
+    position: absolute;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: absolute;
-    height: 560px;
-    width: 100%;
+    height: 60%;
+    max-height: 950px;
+    width: 50%;
     max-width: 950px;
     margin: auto;
     border: 10px solid rgb(70, 15, 15);
     border-radius: 50px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    top:27%;
+}
+header {
+    position: relative;
+    top: 0%;
+    position: absolute;
+    width: 50%;
+    height: 25%;
+}
+
+header img {
+    width: 100%;
+    height: 50%;
+    display: block;
+}
+
+#vidas {
+    font-size: 2em;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 20%;
+    left: 64%;
+}
+
+.vida {
+    margin-right: 10px;
+}
+
+
+.opcion {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #eeae87; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 30px 30px 30px 0; /* Forma de la burbuja */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* Sombra */
+    position: relative;
+    white-space: nowrap; /* Para evitar que el texto se divida en múltiples líneas */
+    transition: background-color 0.3s, transform 0.1s; /* Transiciones suaves */
+}
+
+.opcion::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    width: 15px;
+    height: 15px;
+    background-color: #eeae87;
+    border-radius: 50%;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* Sombra del triángulo */
+    transform: rotate(45deg);
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+.opcion:hover {
+    background-color: #ff7f00; /* Color de fondo al pasar el ratón */
+}
+
+.opcion:hover::after {
+    background-color: #ff7f00; /* Color del triángulo al pasar el ratón */
+}
+
+.opcion:active {
+    transform: scale(0.95); /* Efecto de presionado al hacer clic */
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Reducción de sombra al presionar */
+}
+
+
+
+
+#respuestas{
+    position: absolute;
+    top: 30%;
+    left: 27%;          
+    display: none;
+    flex-direction: column;
+    align-items: flex-start; /* Para alinear los botones al inicio del contenedor */
+    gap: 20px; /* Espacio entre los botones */
+    padding: 20px;
 }
 
 .container-fluid{
@@ -36,7 +181,7 @@ body {
     position: absolute;
     animation: move_gif_mama 6s infinite alternate;
     z-index: 4;
-    top: 19%;
+    top: 2%;
 }
 .gif-mama-2 {
     display: none;
@@ -81,12 +226,13 @@ body {
         left: 50%;
     }
     100% {
-        left: calc(34% - 1px); /* Ajusta según el ancho de tu GIF */
+        left: calc(20% - 1px); /* Ajusta según el ancho de tu GIF */
     }
 }  
 
 .button {
-    display: inline-block;
+    /*display: inline-block*/
+    display: none;
     width: 100%;
     max-width: 950px;
     height: 62px;
@@ -179,7 +325,7 @@ a.btn-salir:active {
     line-height: 1.5;
     display: none;
     left: 53%;
-    top: 30%;
+    top: 25%;
     transform: translate(-50%, -50%);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
@@ -238,7 +384,7 @@ a.btn-salir:active {
 #staticImage {
     position: absolute;
     left: 50%;
-    top: 53%;
+    top: 58%;
     transform: translate(-50%, -50%);
     height: auto;
     display: none;
@@ -259,8 +405,8 @@ a.btn-salir:active {
 }
 .gif-hijo-1 {
     position: absolute;
-    top: 70%;
-    left: 40%;
+    top: 82%;
+    left: 32%;
     transform: translate(-50%, -50%);
     width: 220px;
     height: auto;
@@ -298,8 +444,8 @@ a.btn-salir:active {
     font-size: 16px;
     line-height: 1.5;
     display: none;
-    left: 44%;
-    top: 55%;
+    left: 38%;
+    top: 58%;
     transform: translate(-50%, -50%);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
