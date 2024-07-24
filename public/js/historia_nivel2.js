@@ -39,6 +39,13 @@ let array_opciones = [
     
 ];
 
+
+let tamaño = 100/array_opciones.length;
+
+function cargar_barra (){
+    const barra = document.getElementById('barra');
+    barra.value += tamaño;
+}
 function asignar_opciones(escena){
     posicion_opcion = array_opciones[escena];
 
@@ -154,7 +161,7 @@ let correcto = 0;
     function escena_2() {
         contador = 1;
         opciones.style.display = "none";
-        cambiar_ubicacion_porcentaje(opciones,'70','25')
+        cambiar_ubicacion_porcentaje(opciones,'60','25')
         disguise(gif_image);
         disguise(static_image);
         disguise(message_mama1);
@@ -227,7 +234,10 @@ let correcto = 0;
                     } else if (contador === 1) {
                         escena_3();
                     }
+
+                    cargar_barra()
                 }, 4000);
+                
             }
         });
     });
