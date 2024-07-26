@@ -83,27 +83,78 @@ header img {
   border-radius: 25px;
 }
 
-.rompecabezas {
 
+
+
+
+.rompecabezas_final {
+  justify-content: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  max-width: 600px;
-  max-height: 400px;
-  position: absolute;
-  top: 30%;
-  align-items: center;
+  width: 420px; 
+  height: 300px; 
+}
+
+.espacio {
+  width: 200px;
+  height: 200px;
+  border: 2px dashed #ccc;
+  background-color: #f9f9f9;
+}
+
+.quitar_borde {
+  border: none;
+  width: 200px;
+  height: 200px;
+  background-color: #f9f9f9;
+}
+.dragBox{
+  width: 200px;
+  height: 200px;
 }
 
 .pieza {
   width: 200px;
   height: 200px;
+  position: relative;
   background-size: 600px 400px;
   background-color: lightblue;
-  filter: blur(20px) grayscale(100%);
+  /*filter: blur(20px) grayscale(100%);*/
   cursor: pointer;
   transition: filter 0.3s;
   background-repeat: no-repeat;
+}
+
+#casilla_1 {
+  position: absolute;
+  left: 80%;
+  top: 28%;
+}
+#casilla_2 {
+  position: absolute;
+  left: 8%;
+  top: 52%;
+}
+#casilla_3 {
+  position: absolute;
+  left: 5%;
+  top: 30%;
+}
+#casilla_4 {
+  position: absolute;
+  left: 86%;
+  top: 67%;
+}
+#casilla_5 {
+  position: absolute;
+  left: 2%;
+  top: 70%;
+}
+#casilla_6 {
+  position: absolute;
+  left: 84%;
+  top: 46%;
 }
 
 .pieza[data-index="1"] { background-position: 0 0; }

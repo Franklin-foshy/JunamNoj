@@ -1,3 +1,30 @@
+document.querySelectorAll('.pieza').forEach(pieza => {
+    pieza.addEventListener('dragstart', (event) => {
+        let index = pieza.getAttribute('data-index');
+        event.dataTransfer.setData("text", event.target.id);
+        event.dataTransfer.setData("index", index);
+    });
+});
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drop(event) {
+    event.preventDefault();
+    let data = event.dataTransfer.getData("text");
+    let pieza = document.getElementById(data);
+    let piezaIndex = pieza.getAttribute('data-index');
+    let espacioIndex = event.target.getAttribute('data-index');
+    event.target.appendChild(pieza);
+    if (piezaIndex === espacioIndex) {
+            pieza.setAttribute('draggable', 'false');
+            pieza.style.pointerEvents = 'none'
+        mostrarPregunta(piezaIndex);
+        mostrarModal();
+    }
+}
+
 let preguntas = [
     {
         pregunta: "¿Cuál es la capital de Francia?",
@@ -12,7 +39,7 @@ let preguntas = [
         correcta: 0
     },
     {
-        pregunta: "¿Cuál es la capital de Alemania?",
+        pregunta: "¿Cuál es la capital de Guatemala?",
         images: ["imgs/nivel2/imagen_1.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_3.jpeg"],
         respuestas: ["Berlín", "Viena", "Zurich"],
         correcta: 0
@@ -56,18 +83,23 @@ const close_modal = document.querySelector('.close_modal');
 const imagen1 = document.getElementById('imagen1');
 const imagen2 = document.getElementById('imagen2');
 const imagen3 = document.getElementById('imagen3');
+const rompecabezas = document.querySelector('.rompecabezas_final');
+const espacios = document.querySelector('.espacio');
+const espacio1 = document.getElementById('espacio1');
+const espacio2 = document.getElementById('espacio2');
+const espacio3 = document.getElementById('espacio3');
+const espacio4 = document.getElementById('espacio4');
+const espacio5 = document.getElementById('espacio5');
+const espacio6 = document.getElementById('espacio6');
 
-document.querySelectorAll('.pieza').forEach(pieza => {
-    pieza.addEventListener('click', () => {
-        let index = pieza.getAttribute('data-index');
-        mostrarPregunta(index);
-    });
-});
 
+
+close_modal.style.display = "none";
+/*
 close_modal.addEventListener('click', (e) => {
     e.preventDefault();
     modal.classList.remove('modal_show');
-});
+}); */
 
 span.onclick = function() {
     modal.style.display = "none";
@@ -94,6 +126,13 @@ imagenesRespuesta.forEach((imagen, i) => {
         }
         if (completadas == 6) {
             confetti_++;
+            espacio1.style.border = "none";
+            espacio2.style.border = "none";
+            espacio3.style.border = "none";
+            espacio4.style.border = "none";
+            espacio5.style.border = "none";
+            espacio6.style.border = "none";
+            rompecabezas.style.gap = "0px";
         }
 
         if (confetti_ == 1) {

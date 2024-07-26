@@ -48,40 +48,30 @@ const questions = [
         text: "¿Quien crees que deberia encargasrse de los deberes del hogar?",
         images: ["imgs/nivel2/imagen_4.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_2.jpeg"],
         descrip:["corresponsabilidad afectiva","señores en union","marchas en casa arraigadas a un espacio "],
-        descrip2:"señores en union",
-        descrip3:"marchas en casa arraigadas a un espacio ",
         correct: 2
     },
     {
         text: "Pregunta 2: ¿Cuál es la imagen correcta?",
         images: ["imgs/nivel2/imagen_2.jpeg", "imgs/nivel2/imagen_6.jpeg","imgs/nivel2/imagen_5.jpeg"],
         descrip:["ayuda en la limpieza","estutas socio economico","señores unidos por un mismo proposito"],
-        descrip2:"estutas socio economico",
-        descrip3:"señores unidos por un mismo proposito",
         correct: 1
     },
     {
         text: "Pregunta 3: ¿Cuál es la imagen correcta?",
         images: ["imgs/nivel2/imagen_4.jpeg", "imgs/nivel2/imagen_2.jpeg","imgs/nivel2/imagen_3.jpeg"],
         descrip:["dilectivo progenero","segramentaria de aprencio a los impuestos ","mujeres unidas "],
-        descrip2:"segramentaria de aprencio a los impuestos ",
-        descrip3:"mujeres unidas ",
         correct: 0
     },
     {
         text: "Pregunta 4: ¿Cuál es la imagen correcta?",
         images: ["imgs/nivel2/imagen_4.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_2.jpeg"],
         descrip:["estatus en sociedad","marchas a favor de la igualdad","estatus cultural"],
-        descrip2:"marchas a favor de la igualdad",
-        descrip3:"estatus cultural",
         correct: 2
     },
     {
         text: "Pregunta 5: ¿Cuál es la imagen correcta?",
         images: ["imgs/nivel2/imagen_5.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_3.jpeg"],
         descrip:["corresponsabilidad en casa","no solo es mujer","todos juntos en casa "],
-        descrip2:"no solo es mujer",
-        descrip3:"todos juntos en casa ",
         correct: 1
     }
 ];
