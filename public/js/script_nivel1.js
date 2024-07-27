@@ -1,4 +1,9 @@
+
 document.querySelectorAll('.pieza').forEach(pieza => {
+    // Guardar la posición original de cada pieza
+    pieza.setAttribute('data-original-parent', pieza.parentElement.id);
+    pieza.setAttribute('data-original-index', pieza.style.zIndex);
+
     pieza.addEventListener('dragstart', (event) => {
         let index = pieza.getAttribute('data-index');
         event.dataTransfer.setData("text", event.target.id);
@@ -16,14 +21,24 @@ function drop(event) {
     let pieza = document.getElementById(data);
     let piezaIndex = pieza.getAttribute('data-index');
     let espacioIndex = event.target.getAttribute('data-index');
-    event.target.appendChild(pieza);
-    if (piezaIndex === espacioIndex) {
+
+    // Verificar si el espacio ya tiene una pieza
+    if (event.target.classList.contains('espacio') && event.target.children.length === 0) {
+        event.target.appendChild(pieza);
+        if (piezaIndex === espacioIndex) {
             pieza.setAttribute('draggable', 'false');
-            pieza.style.pointerEvents = 'none'
-        mostrarPregunta(piezaIndex);
-        mostrarModal();
+            pieza.style.pointerEvents = 'none';
+            mostrarPregunta(piezaIndex);
+            mostrarModal();
+        }
+    } else {
+        // Devolver la pieza a su posición original si el espacio ya está ocupado
+        let originalParent = document.getElementById(pieza.getAttribute('data-original-parent'));
+        originalParent.appendChild(pieza);
+        pieza.style.zIndex = pieza.getAttribute('data-original-index');
     }
 }
+
 
 let preguntas = [
     {
@@ -91,15 +106,43 @@ const espacio3 = document.getElementById('espacio3');
 const espacio4 = document.getElementById('espacio4');
 const espacio5 = document.getElementById('espacio5');
 const espacio6 = document.getElementById('espacio6');
+const boton_continuar = document.getElementById('next-button');
+const boton_regresar = document.getElementById('regresar');
+const modal_continuar = document.getElementById('modal-continuar');
 
+
+
+
+
+
+
+boton_regresar.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.classList.add('modal_show');
+    close_modal.style.display = "block";
+    modal_continuar.style.display = "block";
+    preguntaTexto.style.display = "none";
+    imagen1.style.display = "none";
+    imagen2.style.display = "none";
+    imagen3.style.display = "none";
+});
 
 
 close_modal.style.display = "none";
-/*
+
 close_modal.addEventListener('click', (e) => {
     e.preventDefault();
+    close_modal.style.display = "none";
     modal.classList.remove('modal_show');
-}); */
+    setTimeout(() => {
+        modal_continuar.style.display = "none"
+        preguntaTexto.style.display = "block";
+        imagen1.style.display = "block";
+        imagen2.style.display = "block";
+        imagen3.style.display = "block";
+    }, 1000);
+
+});
 
 span.onclick = function() {
     modal.style.display = "none";
@@ -120,8 +163,10 @@ imagenesRespuesta.forEach((imagen, i) => {
             correctas++;
         }
         completadas++;
-        if (completadas > 6) {
+        if (completadas >= 6) {
             completadas = 6;
+            boton_continuar.style.display = "block" ;
+            boton_regresar.style.display = "none" ;
             
         }
         if (completadas == 6) {
@@ -161,6 +206,8 @@ function mostrarPregunta(index) {
     modal.classList.add('modal_show');
     modal.setAttribute('data-index', index);
 }
+
+
 
 
 modal.addEventListener('click', (e) => {
