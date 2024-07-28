@@ -48,6 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('pieza')) {
             active = true;
             draggedPiece = e.target;
+
+            // Hacer que la pieza desaparezca momentáneamente
+            draggedPiece.style.visibility = 'hidden';
+            setTimeout(() => {
+                draggedPiece.style.visibility = 'visible';
+            }, 130); // 100 ms
+
             draggedPiece.style.position = 'absolute';
             draggedPiece.style.zIndex = '1000';
 
