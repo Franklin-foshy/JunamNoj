@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para restablecer las piezas al cargar la página
     function initializePiezas() {
-        console.log('Initializing piezas...');
         piezas.forEach(pieza => {
             // Restablecer estilos y atributos
             pieza.style.position = 'static';
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    initializePiezas();  // Llama a initializePiezas al inicio
+    initializePiezas();
 
     piezas.forEach(pieza => {
         pieza.setAttribute('data-original-parent', pieza.parentElement.id);
@@ -75,9 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         espacios.forEach(espacio => {
             const espacioIndex = espacio.getAttribute('data-index');
+            const existingPiece = espacio.querySelector('.pieza');
 
             if (isDroppedInEspacio(e.changedTouches ? e.changedTouches[0].clientX : e.clientX, e.changedTouches ? e.changedTouches[0].clientY : e.clientY, espacio)) {
-                if (espacio.children.length === 0) {
+                if (!existingPiece || existingPiece === draggedPiece) {
                     espacio.appendChild(draggedPiece);
                     draggedPiece.style.position = 'static';
                     draggedPiece.style.transform = 'none';
@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (!placed) {
+            // Volver a la posición original si no se coloca en un contenedor permitido
             let originalParent = document.getElementById(draggedPiece.getAttribute('data-original-parent'));
             originalParent.appendChild(draggedPiece);
             draggedPiece.style.position = 'static';
@@ -141,20 +142,29 @@ document.addEventListener('DOMContentLoaded', () => {
         let pieza = document.getElementById(data);
         let piezaIndex = pieza.getAttribute('data-index');
         let espacioIndex = event.target.getAttribute('data-index');
+        let existingPiece = event.target.querySelector('.pieza');
 
-        if (event.target.classList.contains('espacio') && event.target.children.length === 0) {
-            event.target.appendChild(pieza);
+        if (event.target.classList.contains('espacio')) {
+            if (!existingPiece || existingPiece === pieza) {
+                event.target.appendChild(pieza);
 
-            if (piezaIndex === espacioIndex) {
-                pieza.setAttribute('draggable', 'false');
-                pieza.style.pointerEvents = 'none';
-                mostrarPregunta(piezaIndex);
-                mostrarModal();
+                if (piezaIndex === espacioIndex) {
+                    pieza.setAttribute('draggable', 'false');
+                    pieza.style.pointerEvents = 'none';
+                    mostrarPregunta(piezaIndex);
+                    mostrarModal();
+                }
+            } else {
+                let originalParent = document.getElementById(pieza.getAttribute('data-original-parent'));
+                originalParent.appendChild(pieza);
+                pieza.style.position = 'static';
+                pieza.style.transform = 'none';
             }
         } else {
             let originalParent = document.getElementById(pieza.getAttribute('data-original-parent'));
             originalParent.appendChild(pieza);
-            pieza.style.zIndex = pieza.getAttribute('data-original-index');
+            pieza.style.position = 'static';
+            pieza.style.transform = 'none';
         }
     }
 
@@ -163,8 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
         espacio.addEventListener('dragover', allowDrop, false);
         espacio.addEventListener('drop', drop, false);
     });
-
 });
+
 
 
 
