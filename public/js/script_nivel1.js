@@ -33,8 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
             initialX = e.touches ? e.touches[0].clientX : e.clientX;
             initialY = e.touches ? e.touches[0].clientY : e.clientY;
 
-            xOffset = draggedPiece.offsetLeft - initialX;
-            yOffset = draggedPiece.offsetTop - initialY;
+            const rect = draggedPiece.getBoundingClientRect();
+            xOffset = initialX - rect.left;
+            yOffset = initialY - rect.top;
         }
     }
 
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         draggedPiece.style.zIndex = '';
 
         const piezaIndex = draggedPiece.getAttribute('data-index');
+        let placed = false;
 
         espacios.forEach(espacio => {
             const espacioIndex = espacio.getAttribute('data-index');
@@ -54,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     draggedPiece.style.transform = 'none';
                     xOffset = 0;
                     yOffset = 0;
+                    placed = true;
 
                     if (piezaIndex === espacioIndex) {
                         draggedPiece.setAttribute('draggable', 'false');
@@ -65,11 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        if (!draggedPiece.parentElement.classList.contains('espacio')) {
+        if (!placed) {
+            // Volver a la posición original si no se coloca en un contenedor
             let originalParent = document.getElementById(draggedPiece.getAttribute('data-original-parent'));
             originalParent.appendChild(draggedPiece);
-            draggedPiece.style.zIndex = draggedPiece.getAttribute('data-original-index');
-            setTranslate(currentX, currentY, draggedPiece);
+            draggedPiece.style.position = 'static';
+            draggedPiece.style.transform = 'none';
+            xOffset = 0;
+            yOffset = 0;
         }
     }
 
@@ -77,8 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (active) {
             e.preventDefault();
 
-            currentX = (e.touches ? e.touches[0].clientX : e.clientX) + xOffset;
-            currentY = (e.touches ? e.touches[0].clientY : e.clientY) + yOffset;
+            currentX = (e.touches ? e.touches[0].clientX : e.clientX) - initialX + xOffset;
+            currentY = (e.touches ? e.touches[0].clientY : e.clientY) - initialY + yOffset;
 
             setTranslate(currentX, currentY, draggedPiece);
         }
