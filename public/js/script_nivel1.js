@@ -56,8 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
             initialY = e.touches ? e.touches[0].clientY : e.clientY;
 
             const rect = draggedPiece.getBoundingClientRect();
-            xOffset = initialX - rect.left;
-            yOffset = initialY - rect.top;
+            xOffset = initialX - (rect.left + rect.width / 2);
+            yOffset = initialY - (rect.top + rect.height / 2);
+
+            currentX = initialX - xOffset;
+            currentY = initialY - yOffset;
+
+            setTranslate(currentX, currentY, draggedPiece);
         }
     }
 
