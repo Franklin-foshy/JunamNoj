@@ -1,12 +1,4 @@
 // script.js
-const pieza = document.querySelector('.pieza');
-
-
-setTimeout(() => {
-    pieza.setAttribute('draggable', 'true');
-}, 1000);
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const piezas = document.querySelectorAll('.pieza');
     const espacios = document.querySelectorAll('.espacio');
@@ -18,6 +10,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let xOffset = 0;
     let yOffset = 0;
     let draggedPiece = null;
+
+    // Función para restablecer las piezas al cargar la página
+    function initializePiezas() {
+        piezas.forEach(pieza => {
+            // Restablecer estilos y atributos
+            pieza.style.position = 'static';
+            pieza.style.transform = 'none';
+            pieza.style.pointerEvents = 'auto';
+            pieza.setAttribute('draggable', 'true');
+
+            // Verificar si la pieza está en su posición correcta
+            const piezaIndex = pieza.getAttribute('data-index');
+            const parentEspacio = pieza.parentElement;
+
+            if (parentEspacio.classList.contains('espacio') && parentEspacio.getAttribute('data-index') === piezaIndex) {
+                pieza.setAttribute('draggable', 'false');
+                pieza.style.pointerEvents = 'none';
+            }
+        });
+    }
+
+    initializePiezas();
 
     piezas.forEach(pieza => {
         pieza.setAttribute('data-original-parent', pieza.parentElement.id);
