@@ -1,4 +1,12 @@
 // script.js
+const pieza = document.querySelector('.pieza');
+
+
+setTimeout(() => {
+    pieza.setAttribute('draggable', 'true');
+}, 1000);
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const piezas = document.querySelectorAll('.pieza');
     const espacios = document.querySelectorAll('.espacio');
