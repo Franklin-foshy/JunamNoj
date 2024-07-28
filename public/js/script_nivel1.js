@@ -1,3 +1,4 @@
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
     const piezas = document.querySelectorAll('.pieza');
     const espacios = document.querySelectorAll('.espacio');
@@ -12,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para restablecer las piezas al cargar la página
     function initializePiezas() {
-        console.log('Initializing piezas...');
         piezas.forEach(pieza => {
             // Restablecer estilos y atributos
             pieza.style.position = 'static';
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    initializePiezas();  // Llama a initializePiezas al inicio
+    initializePiezas();
 
     piezas.forEach(pieza => {
         pieza.setAttribute('data-original-parent', pieza.parentElement.id);
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentX = initialX - xOffset;
             currentY = initialY - yOffset;
 
-            setTranslate(currentX, currentY, draggedPiece);
+
         }
     }
 
@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (!placed) {
+            // Volver a la posición original si no se coloca en un contenedor
             let originalParent = document.getElementById(draggedPiece.getAttribute('data-original-parent'));
             originalParent.appendChild(draggedPiece);
             draggedPiece.style.position = 'static';
@@ -163,7 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
         espacio.addEventListener('dragover', allowDrop, false);
         espacio.addEventListener('drop', drop, false);
     });
-
 });
 
 
