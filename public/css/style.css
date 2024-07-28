@@ -85,23 +85,31 @@ header img {
 
 
 .modal_cont h2{
-  font-size: 2.5rem;
+  font-size: 36px; /* Tamaño de la fuente */
+  color: #333; /* Color del texto */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
 .modal_cont p{
-  margin-bottom: 10px;
+  font-size: 15px; /* Tamaño de la fuente */
+  color: #333; /* Color del texto */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
 .modal_cont img{
   width: 90%;
   max-width: 300px;
   border-radius: 6px;
+  border: 20px solid #fff;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5)
+  
 }
 
 .contacto {
   text-decoration: none;
   color: #fff;
   background-color: #F26250;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
   padding: 1rem 3rem;
   border-radius: 6px;
   display: inline-block;
@@ -209,6 +217,8 @@ header img {
 }
 
 .gif_principal {
+  position: absolute;
+  left: 20%;
   width: 200px;
   height: auto;
   margin-right: 20px; /* Espacio entre el GIF y la pregunta */
@@ -220,6 +230,8 @@ header img {
 }
 
 .pregunta_ {
+  position: absolute;
+  left: 35%;
   font-family: 'Arial', sans-serif; /* Puedes cambiar esto a la fuente exacta que necesites */
   font-size: 20px; /* Ajusta el tamaño según sea necesario */
   font-weight: bold; /* Ajusta el peso según sea necesario */
@@ -630,6 +642,33 @@ header img {
     margin-top: 0px;
   }
 
+  .gif_principal {
+    position: absolute;
+    left: 10%;
+    width: 200px;
+    height: auto;
+    margin-right: 20px; /* Espacio entre el GIF y la pregunta */
+  }
+  
+  .gif_principal img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .pregunta_ {
+    position: absolute;
+    left: 35%;
+    font-family: 'Arial', sans-serif; /* Puedes cambiar esto a la fuente exacta que necesites */
+    font-size: 30px; /* Ajusta el tamaño según sea necesario */
+    font-weight: bold; /* Ajusta el peso según sea necesario */
+    color: #123456; /* Cambia esto al color exacto que necesitas */
+    align-items: center;
+    text-align: center; /* Opcional: centra el texto */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    margin: 0; /* Elimina cualquier margen predeterminado */
+  }
+  
+
   #game-container {
     position: absolute;
     display: none;
@@ -679,6 +718,33 @@ header img {
         max-width: 200px;
     }
 
+    .gif_principal {
+      position: absolute;
+      left: 2%;
+      width: 150px;
+      height: auto;
+      margin-right: 20px; /* Espacio entre el GIF y la pregunta */
+    }
+    
+    .gif_principal img {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .pregunta_ {
+      position: absolute;
+      left: 35%;
+      font-family: 'Arial', sans-serif; /* Puedes cambiar esto a la fuente exacta que necesites */
+      font-size: 20px; /* Ajusta el tamaño según sea necesario */
+      font-weight: bold; /* Ajusta el peso según sea necesario */
+      color: #123456; /* Cambia esto al color exacto que necesitas */
+      align-items: center;
+      text-align: center; /* Opcional: centra el texto */
+      letter-spacing: 1px; /* Espaciado entre letras */
+      margin: 0; /* Elimina cualquier margen predeterminado */
+    }
+    
+
     #feedback {
       position: absolute;
       left: 44%;
@@ -719,7 +785,32 @@ header img {
     }
 }
 @media (max-width: 480px) {
-
+  .gif_principal {
+    position: absolute;
+    left: 2%;
+    width: 150px;
+    height: auto;
+    margin-right: 20px; /* Espacio entre el GIF y la pregunta */
+  }
+  
+  .gif_principal img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .pregunta_ {
+    position: absolute;
+    left: 35%;
+    font-family: 'Arial', sans-serif; /* Puedes cambiar esto a la fuente exacta que necesites */
+    font-size: 20px; /* Ajusta el tamaño según sea necesario */
+    font-weight: bold; /* Ajusta el peso según sea necesario */
+    color: #123456; /* Cambia esto al color exacto que necesitas */
+    align-items: center;
+    text-align: center; /* Opcional: centra el texto */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    margin: 0; /* Elimina cualquier margen predeterminado */
+  }
+  
 
 
 
