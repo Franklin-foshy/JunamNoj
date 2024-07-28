@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentX = initialX - xOffset;
             currentY = initialY - yOffset;
 
-            setTranslate(currentX, currentY, draggedPiece);
+
         }
     }
 
