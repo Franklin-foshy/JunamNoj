@@ -1,43 +1,138 @@
+// script.js
+document.addEventListener('DOMContentLoaded', () => {
+    const piezas = document.querySelectorAll('.pieza');
+    const espacios = document.querySelectorAll('.espacio');
+    let active = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+    let draggedPiece = null;
 
-document.querySelectorAll('.pieza').forEach(pieza => {
-    // Guardar la posición original de cada pieza
-    pieza.setAttribute('data-original-parent', pieza.parentElement.id);
-    pieza.setAttribute('data-original-index', pieza.style.zIndex);
+    piezas.forEach(pieza => {
+        pieza.setAttribute('data-original-parent', pieza.parentElement.id);
 
-    pieza.addEventListener('dragstart', (event) => {
-        let index = pieza.getAttribute('data-index');
-        event.dataTransfer.setData("text", event.target.id);
-        event.dataTransfer.setData("index", index);
+        pieza.addEventListener('touchstart', dragStart, false);
+        pieza.addEventListener('touchend', dragEnd, false);
+        pieza.addEventListener('touchmove', drag, false);
+
+        pieza.addEventListener('dragstart', (event) => {
+            event.dataTransfer.setData("text", event.target.id);
+        });
+    });
+
+    function dragStart(e) {
+        if (e.target.classList.contains('pieza')) {
+            active = true;
+            draggedPiece = e.target;
+            draggedPiece.style.position = 'absolute';
+            draggedPiece.style.zIndex = '1000';
+
+            initialX = e.touches ? e.touches[0].clientX : e.clientX;
+            initialY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            xOffset = draggedPiece.offsetLeft - initialX;
+            yOffset = draggedPiece.offsetTop - initialY;
+        }
+    }
+
+    function dragEnd(e) {
+        active = false;
+        draggedPiece.style.zIndex = '';
+
+        const piezaIndex = draggedPiece.getAttribute('data-index');
+
+        espacios.forEach(espacio => {
+            const espacioIndex = espacio.getAttribute('data-index');
+
+            if (isDroppedInEspacio(e.changedTouches ? e.changedTouches[0].clientX : e.clientX, e.changedTouches ? e.changedTouches[0].clientY : e.clientY, espacio)) {
+                if (espacio.children.length === 0) {
+                    espacio.appendChild(draggedPiece);
+                    draggedPiece.style.position = 'static';
+                    draggedPiece.style.transform = 'none';
+                    xOffset = 0;
+                    yOffset = 0;
+
+                    if (piezaIndex === espacioIndex) {
+                        draggedPiece.setAttribute('draggable', 'false');
+                        draggedPiece.style.pointerEvents = 'none';
+                        mostrarPregunta(piezaIndex);
+                        mostrarModal();
+                    }
+                }
+            }
+        });
+
+        if (!draggedPiece.parentElement.classList.contains('espacio')) {
+            let originalParent = document.getElementById(draggedPiece.getAttribute('data-original-parent'));
+            originalParent.appendChild(draggedPiece);
+            draggedPiece.style.zIndex = draggedPiece.getAttribute('data-original-index');
+            setTranslate(currentX, currentY, draggedPiece);
+        }
+    }
+
+    function drag(e) {
+        if (active) {
+            e.preventDefault();
+
+            currentX = (e.touches ? e.touches[0].clientX : e.clientX) + xOffset;
+            currentY = (e.touches ? e.touches[0].clientY : e.clientY) + yOffset;
+
+            setTranslate(currentX, currentY, draggedPiece);
+        }
+    }
+
+    function setTranslate(xPos, yPos, el) {
+        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+    }
+
+    function isDroppedInEspacio(x, y, espacio) {
+        const rect = espacio.getBoundingClientRect();
+        return (
+            x > rect.left &&
+            x < rect.right &&
+            y > rect.top &&
+            y < rect.bottom
+        );
+    }
+
+    // Funciones allowDrop y drop para soportar drag and drop en desktops
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        let data = event.dataTransfer.getData("text");
+        let pieza = document.getElementById(data);
+        let piezaIndex = pieza.getAttribute('data-index');
+        let espacioIndex = event.target.getAttribute('data-index');
+
+        if (event.target.classList.contains('espacio') && event.target.children.length === 0) {
+            event.target.appendChild(pieza);
+
+            if (piezaIndex === espacioIndex) {
+                pieza.setAttribute('draggable', 'false');
+                pieza.style.pointerEvents = 'none';
+                mostrarPregunta(piezaIndex);
+                mostrarModal();
+            }
+        } else {
+            let originalParent = document.getElementById(pieza.getAttribute('data-original-parent'));
+            originalParent.appendChild(pieza);
+            pieza.style.zIndex = pieza.getAttribute('data-original-index');
+        }
+    }
+
+    // Añadir eventos a los espacios para soporte de desktops
+    espacios.forEach(espacio => {
+        espacio.addEventListener('dragover', allowDrop, false);
+        espacio.addEventListener('drop', drop, false);
     });
 });
 
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-function drop(event) {
-    event.preventDefault();
-    let data = event.dataTransfer.getData("text");
-    let pieza = document.getElementById(data);
-    let piezaIndex = pieza.getAttribute('data-index');
-    let espacioIndex = event.target.getAttribute('data-index');
-
-    // Verificar si el espacio ya tiene una pieza
-    if (event.target.classList.contains('espacio') && event.target.children.length === 0) {
-        event.target.appendChild(pieza);
-        if (piezaIndex === espacioIndex) {
-            pieza.setAttribute('draggable', 'false');
-            pieza.style.pointerEvents = 'none';
-            mostrarPregunta(piezaIndex);
-            mostrarModal();
-        }
-    } else {
-        // Devolver la pieza a su posición original si el espacio ya está ocupado
-        let originalParent = document.getElementById(pieza.getAttribute('data-original-parent'));
-        originalParent.appendChild(pieza);
-        pieza.style.zIndex = pieza.getAttribute('data-original-index');
-    }
-}
 
 
 let preguntas = [
