@@ -106,6 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         draggedPiece.style.pointerEvents = 'none';
                         mostrarPregunta(piezaIndex);
                         mostrarModal();
+                    }else{
+                        audio_incorrecto.play();
+                        setTimeout(() => {
+                            audio_incorrecto.pause();
+                            },1000);
                     }
                 }
             }
