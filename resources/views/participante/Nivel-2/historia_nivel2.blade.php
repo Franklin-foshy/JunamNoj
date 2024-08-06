@@ -7,6 +7,13 @@
     <title>{{_('hirtoria_nivel_2')}}</title>
 </head>
 <body>
+
+<!-------------------------------------- modal --------------------------------------------->
+
+@include('participante.Nivel-2.componenetes_nivel2.modal')
+
+<!-------------------------------------- modal --------------------------------------------->
+
 <!---------------------- header ------------------------>
 
 @include('participante.Nivel-2.componenetes_nivel2.header')
@@ -35,11 +42,19 @@
 <!------------------------------ marco historia ------------------------------------>
 
 
-!<!-------------------------------------- Boton siguiente --------------------------------------------->
+<!-------------------------------------- Boton siguiente --------------------------------------------->
 
 @include('participante.Nivel-2.componenetes_nivel2.boton_historia')
 
-!<!-------------------------------------- Boton siguiente --------------------------------------------->
+<!-------------------------------------- Boton siguiente --------------------------------------------->
+
+<!-------------------------------------- Boton salir --------------------------------------------->
+
+<button class = "continuar" id="regresar"  href="{{ route('dashboard')}}" style="display:none;" onclick="goHome()">{{_('Regresar')}}</button>
+<button class = "continuar" id="siguiente_escena" style="display:none;">{{_('Siguiente')}}</button>
+<!-------------------------------------- Boton salir --------------------------------------------->
+
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>

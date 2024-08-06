@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const mensaje_cambia_madre = document.getElementById('mensaje_mama');
     const mensaje_cambia_madre2 = document.getElementById('mensaje_mama2');
     const contendor = document.getElementById('contenedor');
-    const boton_siguiente = document.getElementById('boton-siguiente');
     const gifImage2 = document.getElementById('gifImage2');
     const gifImage3 = document.getElementById('gifImage3');
     const static_image2 = document.getElementById('staticImage2');
@@ -24,6 +23,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const opcion1 = document.getElementById('opcion1');
     const opcion2 = document.getElementById('opcion2');
     const opcion3 = document.getElementById('opcion3');
+    const seguiente_memsaje = document.getElementById('siguiente_mensaje');
+    const siguiente_escena = document.getElementById('siguiente_escena');
+    const regresar = document.getElementById('regresar');
+    const close_modal = document.querySelector('.close_modal');
+    let modal = document.getElementById("modal");
+    const cerrar_modal = document.getElementById('cerrar_modal');
+
+    
     
     
 let array_opciones = [
@@ -59,6 +66,8 @@ function asignar_opciones(escena){
     opcion2.textContent = posicion_opcion.opcione[1]
     opcion3.textContent = posicion_opcion.opcione[2]
 
+    opciones.style.pointerEvents = "auto"
+
 };
 
 
@@ -72,6 +81,11 @@ let correcto = 0;
         variable.style.display = 'block';
     };
 
+
+    function salir() {
+        regresar.style.display = "block"
+    };
+
     // Funcion para ocultar cosas 
     function disguise(variable) {
         variable.style.display = 'none';
@@ -82,17 +96,7 @@ let correcto = 0;
         variable.textContent = text_new;
     };
 
-    // funcion para cambiar de ubicacion 
-    function cambiar_ubicacion(variable, left, top) {
-        variable.style.position = 'absolute';
-        variable.style.left = left + 'px';
-        variable.style.top = top + 'px';
-    };
 
-    // Funcion mover gifs 
-    function mover_gif_o_imagen (variable,segundos,nombre_animacion){
-        variable.style.animatio = `${nombre_animacion} ${segundos}s linear infinite`;
-    }
     // funcion para ca,biar de ubicacion con %
     function cambiar_ubicacion_porcentaje(variable,left,top){
         variable.style.position = 'absolute';
@@ -119,96 +123,171 @@ let correcto = 0;
         timeoutIDs.forEach(id => clearTimeout(id));
         timeoutIDs = []; 
     }
-    // Primer escena 
-    function escena_1() {
-        contador = 0;
-        timeoutIDs.push(setTimeout(function() {
-            disguise(gif_image);
-            show(static_image);
-            change_message(mensaje_cambia_madre, 'Hola hijo querido'); // todos estos son mensajes 
-            show(message_mama1);
-        }, 3500));
 
-        timeoutIDs.push(setTimeout(function() {
-            change_message(mensaje_cambia_hijo, 'Hola mamá...');
-            show(message_hijo1);
-        }, 4000));
+ // Primer escena 
+function escena_1() {
+    contador = 0;
 
-        timeoutIDs.push(setTimeout(function() {
-            change_message(mensaje_cambia_madre, 'como estas hijo ?');
-        }, 5000));
+    seguiente_memsaje.style.pointerEvents = "none";
+    setTimeout(() => {
+        seguiente_memsaje.style.pointerEvents = "auto";
+        disguise(gif_image);
+        show(static_image);
 
-        timeoutIDs.push(setTimeout(function() {
-            change_message(mensaje_cambia_hijo, 'mmm...');
-        }, 6000));
+        seguiente_memsaje.addEventListener('click', mostrarMensajeMama1);
+    }, 3500);
 
-        timeoutIDs.push(setTimeout(function() {
-            change_message(mensaje_cambia_hijo, 'Bien.');
-        }, 6500));
+    asignar_opciones(contador);
+}
 
-        timeoutIDs.push(setTimeout(function() {
-            disguise(message_hijo1);
-            change_message(mensaje_cambia_madre, 'Hijo podrías ayudarme ?');
-        }, 8500));
+function mostrarMensajeMama1() {
+    seguiente_memsaje.style.pointerEvents = "none";
+    setTimeout(() => {
+        seguiente_memsaje.style.pointerEvents = "auto";
+        change_message(mensaje_cambia_madre, 'Hola hijo querido');
+        show(message_mama1);
 
-        timeoutIDs.push(setTimeout(function() {
-            opciones.style.display = "flex";
-        }, 9000));
+        seguiente_memsaje.addEventListener('click', mostrarMensajeHijo1);
+    }, 500);
+}
 
-        asignar_opciones(contador);
-    }
+function mostrarMensajeHijo1() {
+    seguiente_memsaje.removeEventListener('click', mostrarMensajeMama1);
+    seguiente_memsaje.style.pointerEvents = "none";
+    setTimeout(() => {
+        seguiente_memsaje.style.pointerEvents = "auto";
+        change_message(mensaje_cambia_hijo, 'Hola mamá...');
+        show(message_hijo1);
+        seguiente_memsaje.removeEventListener('click', mostrarMensajeHijo1);
+        seguiente_memsaje.addEventListener('click', mostrarMensajeMama2);
+    }, 500);
+}
 
-    function escena_2() {
-        contador = 1;
+function mostrarMensajeMama2() {
+    seguiente_memsaje.style.pointerEvents = "none";
+    setTimeout(() => {
+        seguiente_memsaje.style.pointerEvents = "auto";
+        change_message(mensaje_cambia_madre, '¿Cómo estás hijo?');
+        seguiente_memsaje.removeEventListener('click', mostrarMensajeMama2);
+        seguiente_memsaje.addEventListener('click', mostrarMensajeHijo2);
+    }, 500);
+}
+
+function mostrarMensajeHijo2() {
+    seguiente_memsaje.style.pointerEvents = "none";
+    setTimeout(() => {
+        seguiente_memsaje.style.pointerEvents = "auto";
+        change_message(mensaje_cambia_hijo, 'mmm...');
+        seguiente_memsaje.removeEventListener('click', mostrarMensajeHijo2);
+        seguiente_memsaje.addEventListener('click', mostrarMensajeHijo3);
+    }, 500);
+}
+
+function mostrarMensajeHijo3() {
+    seguiente_memsaje.style.pointerEvents = "none";
+    setTimeout(() => {
+        seguiente_memsaje.style.pointerEvents = "auto";
+        change_message(mensaje_cambia_hijo, 'Bien.');
+        seguiente_memsaje.removeEventListener('click', mostrarMensajeHijo3);
+
+        seguiente_memsaje.addEventListener('click', mostrarSolicitudMadre);
+    }, 500);
+}
+
+function mostrarSolicitudMadre() {
+    seguiente_memsaje.style.pointerEvents = "none";
+    setTimeout(() => {
+        seguiente_memsaje.style.pointerEvents = "auto";
+        disguise(message_hijo1);
+        change_message(mensaje_cambia_madre, 'Hijo, ¿podrías ayudarme?');
+        seguiente_memsaje.removeEventListener('click', mostrarSolicitudMadre);
+
+        seguiente_memsaje.addEventListener('click', mostrarOpciones);
+    }, 500);
+}
+
+function mostrarOpciones() {
+    seguiente_memsaje.style.pointerEvents = "none";
+    setTimeout(() => {
+        seguiente_memsaje.style.pointerEvents = "none";
+        opciones.style.display = "flex";
+        seguiente_memsaje.removeEventListener('click', mostrarOpciones);
+        seguiente_memsaje.style.display = "none";
+    }, 500);
+}
+
+function escena_2() {
+    contador = 1;
+
+    setTimeout(() => {
         opciones.style.display = "none";
-        cambiar_ubicacion_porcentaje(opciones,'60','25')
+        seguiente_memsaje.style.display = "flex";
+
+        cambiar_ubicacion_porcentaje(opciones, '60', '25');
         disguise(gif_image);
         disguise(static_image);
         disguise(message_mama1);
         disguise(message_hijo1);
         disguise(gif_hijo);
         disguise(static_image2);
-        cambiar_fondo(contendor, 'imgs/nivel2/escena1.jpg'); // ruta de las imágenes de fondo
+        cambiar_fondo(contendor, 'imgs/nivel2/escena1.jpg');
         show(gif_hijo2);
 
-        timeoutIDs.push(setTimeout(function() {
-            change_message(mensaje_cambia_hijo2, 'Creo que tenía que ayudar a mi mamá');
-            show(message_hijo2);
-        }, 2000));
+        seguiente_memsaje.style.pointerEvents = "auto";
+        seguiente_memsaje.addEventListener('click', mostrarReflexionHijo);
+    }, 0);
 
-        timeoutIDs.push(setTimeout(function() {
-            boton_siguiente.style.pointerEvents = 'auto';
-        }, 2500));
+    asignar_opciones(contador);
+}
 
-        asignar_opciones(contador);
+function mostrarReflexionHijo() {
 
-        timeoutIDs.push(setTimeout(function() {
-            opciones.style.display = "flex";
-        }, 3500));
+    seguiente_memsaje.style.pointerEvents = "none";
+    setTimeout(() => {
+        seguiente_memsaje.style.pointerEvents = "auto";
+        change_message(mensaje_cambia_hijo2, 'Creo que tenía que ayudar a mi mamá');
+        show(message_hijo2);
 
-    }
+        seguiente_memsaje.addEventListener('click', habilitarBotonSiguiente);
+    }, 500);
+}
+
+function habilitarBotonSiguiente() {
+    seguiente_memsaje.removeEventListener('click', mostrarReflexionHijo);
+    seguiente_memsaje.style.pointerEvents = "none"; 
+    setTimeout(() => {
+        opciones.style.display = "flex";   
+        seguiente_memsaje.style.display = "none";
+
+    }, 500);
+}
+
 
     function escena_3() {
         contador = 2;
+        seguiente_memsaje.style.display = "flex";
+        seguiente_memsaje.style.pointerEvents = "auto"; 
         opciones.style.display = "none";
         disguise(gif_hijo2);
         disguise(message_hijo2);
         cambiar_fondo(contendor, 'imgs/nivel2/escena2.avif');
-
         show(gif_hijo3);
+        seguiente_memsaje.removeEventListener('click', habilitarBotonSiguiente);
+        seguiente_memsaje.addEventListener('click', mensaje_divertido);
 
-        timeoutIDs.push(setTimeout(function() {
-            change_message(message_hijo3, '¡Qué divertido!');
-            show(message_hijo3);
-        }, 2000));
-
-        timeoutIDs.push(setTimeout(function() {
-            boton_siguiente.style.pointerEvents = 'auto';
-            boton_siguiente.href = 'c_nivel2.html';
-        }, 3000));
     }
+function mensaje_divertido() {
+    seguiente_memsaje.style.pointerEvents = "none";
+    setTimeout(() => {
+        change_message(message_hijo3, '¡Qué divertido!');
+        show(message_hijo3);
+    seguiente_memsaje.removeEventListener('click', mensaje_divertido);
+    seguiente_memsaje.style.display = "none";
 
-    boton_siguiente.style.pointerEvents = 'none';
+    salir()
+
+    }, 500);
+}
     escena_1();
 
     let vidas = 3;
@@ -221,21 +300,31 @@ let correcto = 0;
                 vidas--;
                 actualizarVidas();
                 if (vidas === 0) {
-                    alert("Juego terminado");
+                    modal.classList.add('modal_show');
                     deshabilitarOpciones();
-                    location.reload();
+                    
                 }
             } else if (esCorrecta) {
                 launchConfetti();
                 reiniciar_tiempos();
+                opciones.style.pointerEvents = "none"
                 setTimeout(() => {
-                    if (contador === 0) {
-                        escena_2();
-                    } else if (contador === 1) {
-                        escena_3();
-                    }
+                    siguiente_escena.style.display = "block"
+                    siguiente_escena.style.pointerEvents = "auto"
+                    siguiente_escena.addEventListener('click', () => {
+                            if (contador === 0) {
 
-                    cargar_barra()
+                                escena_2();
+
+                            } else if (contador === 1) {
+                                escena_3();
+                            }
+
+                            cargar_barra()
+                    siguiente_escena.style.display = "none"
+                    siguiente_escena.style.pointerEvents = "none"
+
+                });
                 }, 4000);
                 
             }
@@ -291,3 +380,29 @@ let correcto = 0;
 });
 
 
+cerrar_modal.addEventListener('click', (e)=> {
+    e.preventDefault()
+    modal.classList.remove('modal_show')
+    setTimeout(() => {
+        location.reload();
+    }, 500);
+} );
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        e.stopPropagation(); // Evita que el clic en el fondo cierre el modal
+    }
+});
+
+// Evita que el modal se cierre al hacer clic en el contenido
+modalContent.addEventListener('click', (e) => {
+    e.stopPropagation(); // Evita que el clic en el contenido cierre el modal
+});
+
+
+
+
+
+function goHome() {
+    window.location.href = 'dashboard';
+}

@@ -1,3 +1,10 @@
+var musica = document.getElementById('musica_fondo');
+var audio_correcto = document.getElementById('audio_correcto');
+var audio_incorrecto = document.getElementById('audio_incorrecto');
+var aplausos = document.getElementById('aplausos');
+
+
+musica.play();
 document.addEventListener('DOMContentLoaded', () => {
     const piezas = document.querySelectorAll('.pieza');
     const espacios = document.querySelectorAll('.espacio');
@@ -53,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             draggedPiece.style.visibility = 'hidden';
             setTimeout(() => {
                 draggedPiece.style.visibility = 'visible';
-            }, 130); // 100 ms
+            }, 130); 
 
             draggedPiece.style.position = 'absolute';
             draggedPiece.style.zIndex = '1000';
@@ -85,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (isDroppedInEspacio(e.changedTouches ? e.changedTouches[0].clientX : e.clientX, e.changedTouches ? e.changedTouches[0].clientY : e.clientY, espacio)) {
                 if (!existingPiece || existingPiece === draggedPiece) {
+                    
                     espacio.appendChild(draggedPiece);
                     draggedPiece.style.position = 'static';
                     draggedPiece.style.transform = 'none';
@@ -93,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     placed = true;
 
                     if (piezaIndex === espacioIndex) {
+                        audio_correcto.play();
                         draggedPiece.setAttribute('draggable', 'false');
                         draggedPiece.style.pointerEvents = 'none';
                         mostrarPregunta(piezaIndex);
@@ -138,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-    // Funciones allowDrop y drop para soportar drag and drop en desktops
+    // Funciones allowDrop y drop para pc
     function allowDrop(event) {
         event.preventDefault();
     }
@@ -156,10 +165,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 event.target.appendChild(pieza);
 
                 if (piezaIndex === espacioIndex) {
+                    audio_correcto.play();
                     pieza.setAttribute('draggable', 'false');
                     pieza.style.pointerEvents = 'none';
                     mostrarPregunta(piezaIndex);
                     mostrarModal();
+                    setTimeout(() => {
+                    audio_correcto.pause();
+                    },2000);
+
+                }else{
+                    audio_incorrecto.play();
+                    setTimeout(() => {
+                        audio_incorrecto.pause();
+                        },1000);
                 }
             } else {
                 let originalParent = document.getElementById(pieza.getAttribute('data-original-parent'));
@@ -175,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Añadir eventos a los espacios para soporte de desktops
+    // Añadir eventos a los espacios para soporte de pc
     espacios.forEach(espacio => {
         espacio.addEventListener('dragover', allowDrop, false);
         espacio.addEventListener('drop', drop, false);
@@ -232,7 +251,7 @@ function cargar_barra() {
     const barra = document.getElementById('barra');
     barra.value += tamaño;
 }
-let correctas = 0
+var correctas = 0 ;
 let completadas = 0;
 let modal = document.getElementById("modal");
 let span = document.getElementsByClassName("close")[0];
@@ -254,11 +273,6 @@ const espacio6 = document.getElementById('espacio6');
 const boton_continuar = document.getElementById('next-button');
 const boton_regresar = document.getElementById('regresar');
 const modal_continuar = document.getElementById('modal-continuar');
-
-
-
-
-
 
 
 boton_regresar.addEventListener('click', (e) => {
@@ -306,13 +320,15 @@ imagenesRespuesta.forEach((imagen, i) => {
         document.querySelector(`.pieza[data-index="${index}"]`).classList.add('completada');
         if (esCorrecta) {
             correctas++;
+            
         }
         completadas++;
+        localStorage.setItem('completadas', completadas);
         if (completadas >= 6) {
             completadas = 6;
+            
             boton_continuar.style.display = "block" ;
             boton_regresar.style.display = "none" ;
-            
         }
         if (completadas == 6) {
             confetti_++;
@@ -323,6 +339,10 @@ imagenesRespuesta.forEach((imagen, i) => {
             espacio5.style.border = "none";
             espacio6.style.border = "none";
             rompecabezas.style.gap = "0px";
+            aplausos.play();
+            setTimeout(() => {
+                aplausos.pause();
+            }, 15000);
         }
 
         if (confetti_ == 1) {
@@ -367,13 +387,16 @@ modalContent.addEventListener('click', (e) => {
 });
 
 function goHome() {
+    
+    musica.pause();
+
     window.location.href = 'dashboard';
 }
 
 
 //----------------------------------------Confetti------------------------------------------
 function launchConfetti() {
-    const duration = 4 * 1000; // Duración en milisegundos
+    const duration = 15 * 1000; // Duración en milisegundos
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 

@@ -9,6 +9,11 @@
 </head>
 <body>
 
+<audio id="musica_fondo" src="{{ asset('music/sonido_fondo_nivel1_2.mp3')}}"></audio>
+<audio id="audio_correcto" src="{{ asset('music/correcto.mp3')}}"></audio>
+<audio id="audio_incorrecto" src="{{ asset('music/incorrecto.mp3')}}"></audio>
+<audio id="aplausos" src="{{ asset('music/aplausos.mp3')}}"></audio>
+
 <!--------------------------     barra de carga       ------------------------------->
 
 <!-------------------------------------- Header de imagen ---------------------------------------------->
@@ -53,7 +58,7 @@
 
 <!-------------------------------------- boton_continuar --------------------------------------------->
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script> 
     <script src="{{ asset('js/script_nivel1.js') }}"></script>
 </body>
 </html>

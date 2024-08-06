@@ -26,7 +26,7 @@
 
 <style>
     .pieza {
-        background-image: url('{{ asset('imgs/nivel2/imagen_4.jpeg') }}');
+        background-image: url('{{ asset('imgs/nivel2/imagen_3.jpeg') }}');
     }
 </style>
 
