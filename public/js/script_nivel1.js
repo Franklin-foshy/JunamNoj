@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (piezaIndex === espacioIndex) {
                         audio_correcto.play();
                         setTimeout(() => {
-                            audio_correcto.pause();x
+                            audio_correcto.pause();
                             audio_correcto.currentTime = 0 ;
                             
                             },1000);

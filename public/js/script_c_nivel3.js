@@ -22,6 +22,7 @@ const gif_pregunta = document.getElementById('gif-pregunta');
 const text_nivel = document.getElementById('nivel');
 
 
+
 close_modal.addEventListener('click', (e)=> {
     e.preventDefault()
     modal.classList.remove('modal_show')
@@ -49,6 +50,7 @@ var quiz3 = document.getElementById('quiz3');
     cargando.style.display = 'none';
     gif_pregunta.style.display = 'flex';
     text_nivel.style.display = 'block';
+    
     quiz3.play();
 },1000)
 
@@ -205,7 +207,7 @@ function showResult() {
     document.getElementById('next-button').style.display = 'none';
     document.getElementById('image-container').style.display = 'none';
     document.getElementById('feedback').style.display = 'none';
-    document.getElementById('question-clan').textContent = 'GRACIOS POR LLEGAR AL FINAL !';
+    document.getElementById('question-clan').textContent = 'GRACIAS POR LLEGAR AL FINAL !';
     game_cont.style.justifyItems = 'center';
     document.getElementById('result-text').textContent = `REPUESTAS CORRECTAS ${correct3} DE ${questions.length}`;
     document.getElementById('home-button').style.display = 'block';
