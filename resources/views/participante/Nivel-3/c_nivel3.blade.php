@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nivel 3</title>
+    <title>{{_('nivel 3')}}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css')}}">
 </head>
 <body class="body-nivel2" id="body-principal">
 
-    
+<audio id="audio_correcto" src="{{ asset('music/correcto.mp3')}}"></audio>
+<audio id="audio_incorrecto" src="{{ asset('music/incorrecto.mp3')}}"></audio>
+<audio id="aplausos" src="{{ asset('music/aplausos.mp3')}}"></audio>
+<audio  id="quiz3" src="{{ asset('music/sonido_quiz3.mp3')}}"></audio>
+<audio  id="fuegos_artificiales" src="{{ asset('music/fuegos_artificiales.mp3')}}"></audio>
+
+
     <!-- modal -->
 
     @include ('participante.Nivel-3.componentes_c.modal')

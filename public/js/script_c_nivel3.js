@@ -1,3 +1,9 @@
+var quiz3 = document.getElementById('quiz3');
+var aplausos = document.getElementById('audio_correcto');
+var audio_incorrecto = document.getElementById('audio_incorrecto');
+var fuegos_artificiales = document.getElementById('fuegos_artificiales');
+
+
 const body = document.getElementById('body-principal');
 const cargando = document.getElementById('cargando');
 const game_cont = document.getElementById('game-container');
@@ -34,6 +40,8 @@ time_pantalla_carga = setTimeout(function(){
 },);
 
 time_teminar = setTimeout(function(){
+var quiz3 = document.getElementById('quiz3');
+
     game_cont.style.display = 'flex';
     boton_continuar.style = 'block'
     barra.style = 'block'
@@ -41,6 +49,7 @@ time_teminar = setTimeout(function(){
     cargando.style.display = 'none';
     gif_pregunta.style.display = 'flex';
     text_nivel.style.display = 'block';
+    quiz3.play();
 },1000)
 
 const questions = [
@@ -98,6 +107,11 @@ function loadQuestion() {
     images.forEach(img => {
         img.classList.remove('correct', 'incorrect');
         img.onclick = () => checkAnswer(Array.from(images).indexOf(img));
+        aplausos.pause();
+        aplausos.currentTime = 0 ;
+        audio_incorrecto.pause();
+        audio_incorrecto.currentTime = 0 ;
+
     });
     document.getElementById('feedback').textContent = '';
     document.getElementById('next-button').style.pointerEvents = 'none';
@@ -123,7 +137,7 @@ function checkAnswer(selectedIndex) {
         in_co.style.color = '#28a745';
         imagen_modal.src = question.images[question.correct]
         texto_modal.textContent =   question.descrip[question.correct];
-        
+        aplausos.play();
 
     } else {
         images[selectedIndex].classList.add('incorrect');
@@ -134,6 +148,8 @@ function checkAnswer(selectedIndex) {
         in_co.style.color = 'red';
         imagen_modal.src = question.images[question.correct]
         texto_modal.textContent =   "La respuesta era: "+question.descrip[question.correct];
+        audio_incorrecto.play();
+
 
 
     }
@@ -193,10 +209,17 @@ function showResult() {
     game_cont.style.justifyItems = 'center';
     document.getElementById('result-text').textContent = `REPUESTAS CORRECTAS ${correct3} DE ${questions.length}`;
     document.getElementById('home-button').style.display = 'block';
+    launchConfetti();
+    fuegos_artificiales.play();
+
 }
 
 function goHome() {
     window.location.href = 'dashboard';
+    quiz3.pause();
+    fuegos_artificiales.pause();
+
+
 }
 
 // Iniciar la primera pregunta

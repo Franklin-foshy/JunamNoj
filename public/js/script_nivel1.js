@@ -102,6 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (piezaIndex === espacioIndex) {
                         audio_correcto.play();
+                        setTimeout(() => {
+                            audio_correcto.pause();x
+                            audio_correcto.currentTime = 0 ;
+                            
+                            },1000);
                         draggedPiece.setAttribute('draggable', 'false');
                         draggedPiece.style.pointerEvents = 'none';
                         mostrarPregunta(piezaIndex);
@@ -110,7 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         audio_incorrecto.play();
                         setTimeout(() => {
                             audio_incorrecto.pause();
-                            },1000);
+                            audio_incorrecto.currentTime = 0 ;
+                            
+                            },500);
                     }
                 }
             }
@@ -177,13 +184,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     mostrarModal();
                     setTimeout(() => {
                     audio_correcto.pause();
-                    },2000);
+                    audio_correcto.currentTime = 0 ;
+                    },800);
 
                 }else{
                     audio_incorrecto.play();
                     setTimeout(() => {
                         audio_incorrecto.pause();
-                        },1000);
+                        audio_incorrecto.currentTime = 0 ;
+                        },500);
                 }
             } else {
                 let originalParent = document.getElementById(pieza.getAttribute('data-original-parent'));
@@ -347,6 +356,8 @@ imagenesRespuesta.forEach((imagen, i) => {
             aplausos.play();
             setTimeout(() => {
                 aplausos.pause();
+                aplausos.currentTime = 0 ;
+
             }, 15000);
         }
 
@@ -392,8 +403,9 @@ modalContent.addEventListener('click', (e) => {
 });
 
 function goHome() {
-    
     musica.pause();
+    musica.currentTime = 0 ;
+
 
     window.location.href = 'dashboard';
 }
