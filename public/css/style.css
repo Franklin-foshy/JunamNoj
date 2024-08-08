@@ -983,11 +983,10 @@ header img {
 
 }
 
-@media (max-width: 375px) {
+@media (max-width: 376px) {
   #feedback {
     position: absolute;
-justify-content: center;
-top: 42%;
+    top: 42%;
     color: #28a745;
     font-size: 30px;
     font-weight: bold;
@@ -1002,8 +1001,8 @@ top: 42%;
 
   #feedback {
     position: absolute;
-    left: 35%;
-    top: 47%;
+    left: 31%;
+    top: 90%;
     color: #28a745;
     font-size: 35px;
     font-weight: bold;
