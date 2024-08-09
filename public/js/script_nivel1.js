@@ -1,9 +1,18 @@
-var musica = document.getElementById('musica_fondo');
-var audio_correcto = document.getElementById('audio_correcto');
-var audio_incorrecto = document.getElementById('audio_incorrecto');
-var aplausos = document.getElementById('aplausos');
+
+// ---------------------------------- Audio ------------------------------------
 
 
+    var musica = document.getElementById('musica_fondo');
+    var audio_correcto = document.getElementById('audio_correcto');
+    var audio_incorrecto = document.getElementById('audio_incorrecto');
+    var aplausos = document.getElementById('aplausos');
+
+
+// ---------------------------------- Audio ------------------------------------
+
+
+
+// -------------------------------- Logica para loch ( Movil )---------------------------
 musica.play();
 document.addEventListener('DOMContentLoaded', () => {
     const piezas = document.querySelectorAll('.pieza');
@@ -159,46 +168,66 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
+
+// -------------------------------- Logica para loch ( Movil ) ---------------------------
+
+
+
+
+
+
+
+// -------------------------------- Logica para loch ( PC ) ------------------------------
+
     // Funciones allowDrop y drop para pc
     function allowDrop(event) {
         event.preventDefault();
     }
 
+
     function drop(event) {
         event.preventDefault();
         let data = event.dataTransfer.getData("text");
         let pieza = document.getElementById(data);
-        let piezaIndex = pieza.getAttribute('data-index');
-        let espacioIndex = event.target.getAttribute('data-index');
-        let existingPiece = event.target.querySelector('.pieza');
+        let piezaIndex = pieza.getAttribute('data-index'); // id de la pieza
+        let espacioIndex = event.target.getAttribute('data-index'); // id de del espacio
+        let existingPiece = event.target.querySelector('.pieza'); // Ya hay una pieza en ese espacio
 
+        // --------------------------------- Revisión de existencia de pieza en espacio ---------------------------------
         if (event.target.classList.contains('espacio')) {
+
+            // ------------ Evaluacion de si el espacio esta vacio o es la misma pieza que se quiere colocar ------------
             if (!existingPiece || existingPiece === pieza) {
+                // SI EL ESTA VACIO O SI LA PIEZA ES LA MISMA
                 event.target.appendChild(pieza);
 
+                // ------------- Revisión de si la pieza que se colocara tiene el mismo id que  el espacio  -------------
                 if (piezaIndex === espacioIndex) {
-                    audio_correcto.play();
-                    pieza.setAttribute('draggable', 'false');
-                    pieza.style.pointerEvents = 'none';
-                    mostrarPregunta(piezaIndex);
-                    mostrarModal();
-                    setTimeout(() => {
-                    audio_correcto.pause();
-                    audio_correcto.currentTime = 0 ;
-                    },800);
+                    // SI LA RESPUESTA ES CORRECTA
+                    audio_correcto.play(); // play a la musica de correcto 
+                    pieza.setAttribute('draggable', 'false'); // se le coloca en false el draggable para que ya no se mueva la pieza 
+                    pieza.style.pointerEvents = 'none'; // se le quita el pointer para que no se pueda clikear
+                    mostrarPregunta(piezaIndex); // se hace el cambio a la pregunta y a las segun el id de la pieza
+                    mostrarModal(); // se muestra el modal con los cambios de la pregunta y de las respuestas
+                    setTimeout(() => { 
+                    audio_correcto.pause(); // pausar el audio 
+                    audio_correcto.currentTime = 0 ; // reiniciar el audio 
+                    },800); // tiempo de 8 segundos en del audio de correcto
 
                 }else{
-                    audio_incorrecto.play();
-                    setTimeout(() => {
-                        audio_incorrecto.pause();
-                        audio_incorrecto.currentTime = 0 ;
-                        },500);
+                    // SI LA RESPUESTA ES INCORRECTA 
+                    audio_incorrecto.play(); // play a la musica de incorrecto
+                    setTimeout(() => { 
+                        audio_incorrecto.pause(); // pausar el audio 
+                        audio_incorrecto.currentTime = 0 ; // reiniciar el audio 
+                        },500); // tiempo de 5 segundo del audio incorrecto
                 }
-            } else {
-                let originalParent = document.getElementById(pieza.getAttribute('data-original-parent'));
-                originalParent.appendChild(pieza);
-                pieza.style.position = 'static';
-                pieza.style.transform = 'none';
+            } else {    
+                // SI EL ESPACIO ESTA LLENO O LA PIEZA NO ES LA MISMA
+                let originalParent = document.getElementById(pieza.getAttribute('data-original-parent'));  // Busca la posiscion inicial 
+                originalParent.appendChild(pieza); // Se manda a su posicion inicial 
+                pieza.style.position = 'static'; // Se le deja estatico para que no se mueva 
+                pieza.style.transform = 'none';  // Hace que la pieza permanezca sin otro movimiento
             }
         } else {
             let originalParent = document.getElementById(pieza.getAttribute('data-original-parent'));
@@ -208,13 +237,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Añadir eventos a los espacios para soporte de pc
+    // Eventos a los espacios para soporte de pc
     espacios.forEach(espacio => {
         espacio.addEventListener('dragover', allowDrop, false);
         espacio.addEventListener('drop', drop, false);
     });
 });
 
+// -------------------------------- Logica para loch ( PC ) ------------------------------
 
 
 
@@ -330,7 +360,7 @@ window.onclick = function(event) {
 imagenesRespuesta.forEach((imagen, i) => {
     imagen.addEventListener('click', (e) => {
         let index = modal.getAttribute('data-index');
-        let esCorrecta = imagen.getAttribute('data-correct') === 'true';
+        let esCorrecta = imagen.getAttribute('data-correct') === 'true'; // Aqui esta la validacion de las respuestas, hacer el cambio para ajustar la base de datos -----------------
         document.querySelector(`.pieza[data-index="${index}"]`).classList.add('completada');
         if (esCorrecta) {
             correctas++;

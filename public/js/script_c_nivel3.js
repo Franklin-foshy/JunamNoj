@@ -59,31 +59,31 @@ const questions = [
         text: "¿Quien crees que deberia encargasrse de los deberes del hogar?",
         images: ["imgs/nivel2/imagen_4.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_2.jpeg"],
         descrip:["corresponsabilidad afectiva","señores en union","marchas en casa arraigadas a un espacio "],
-        correct: 2
+        correct: 'corresponsabilidad afectiva'
     },
     {
         text: "Pregunta 2: ¿Cuál es la imagen correcta?",
         images: ["imgs/nivel2/imagen_2.jpeg", "imgs/nivel2/imagen_6.jpeg","imgs/nivel2/imagen_5.jpeg"],
         descrip:["ayuda en la limpieza","estutas socio economico","señores unidos por un mismo proposito"],
-        correct: 1
+        correct: 'ayuda en la limpieza'
     },
     {
         text: "Pregunta 3: ¿Cuál es la imagen correcta?",
         images: ["imgs/nivel2/imagen_4.jpeg", "imgs/nivel2/imagen_2.jpeg","imgs/nivel2/imagen_3.jpeg"],
-        descrip:["dilectivo progenero","segramentaria de aprencio a los impuestos ","mujeres unidas "],
-        correct: 0
+        descrip:["dilectivo progenero","segramentaria de aprencio a los impuestos ","mujeres unidas"],
+        correct: 'mujeres unidas'
     },
     {
         text: "Pregunta 4: ¿Cuál es la imagen correcta?",
         images: ["imgs/nivel2/imagen_4.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_2.jpeg"],
         descrip:["estatus en sociedad","marchas a favor de la igualdad","estatus cultural"],
-        correct: 2
+        correct: 'marchas a favor de la igualdad'
     },
     {
         text: "Pregunta 5: ¿Cuál es la imagen correcta?",
         images: ["imgs/nivel2/imagen_5.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_3.jpeg"],
-        descrip:["corresponsabilidad en casa","no solo es mujer","todos juntos en casa "],
-        correct: 1
+        descrip:["corresponsabilidad en casa","no solo es mujer","todos juntos en casa"],
+        correct: 'todos juntos en casa'
     }
 ];
 
@@ -128,39 +128,36 @@ clearTimeout(time);
 function checkAnswer(selectedIndex) {
     const question = questions[currentQuestionIndex];
     const images = document.querySelectorAll('.image');
-    if (selectedIndex === question.correct) {
+    const img_correcta = question.descrip[selectedIndex];
+    const correctIndex = question.descrip.indexOf(question.correct);
+
+    if (img_correcta === question.correct) {
         images[selectedIndex].classList.add('correct');
         document.getElementById('feedback').textContent = 'Correcto';
         document.getElementById('feedback').style.color = '#28a745';
         correct3++;
         launchConfetti();
-        modal.classList.add('modal_show')
+        modal.classList.add('modal_show');
         in_co.textContent = 'Correcto';
         in_co.style.color = '#28a745';
-        imagen_modal.src = question.images[question.correct]
-        texto_modal.textContent =   question.descrip[question.correct];
+        imagen_modal.src = question.images[correctIndex];
+        texto_modal.textContent = question.descrip[correctIndex];
         aplausos.play();
-
     } else {
         images[selectedIndex].classList.add('incorrect');
         document.getElementById('feedback').textContent = 'Incorrecto';
         document.getElementById('feedback').style.color = 'red';
-        modal.classList.add('modal_show')
-        in_co.textContent = 'Incorrecto'
+        modal.classList.add('modal_show');
+        in_co.textContent = 'Incorrecto';
         in_co.style.color = 'red';
-        imagen_modal.src = question.images[question.correct]
-        texto_modal.textContent =   "La respuesta era: "+question.descrip[question.correct];
+        imagen_modal.src = question.images[correctIndex];
+        texto_modal.textContent = "La respuesta era: " + question.descrip[correctIndex];
         audio_incorrecto.play();
-
-
-
     }
     document.getElementById('next-button').style.pointerEvents = 'auto';
     images.forEach(img => img.onclick = null); // Desactivar clics después de una selección
-
-
-
 }
+
 
 function launchConfetti() {
     const duration = 4 * 1000; // Duración en milisegundos
