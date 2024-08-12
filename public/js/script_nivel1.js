@@ -259,31 +259,31 @@ let preguntas = [
         pregunta: "¿Cuál es la capital de Alemania?",
         images: ["imgs/nivel2/imagen_1.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_3.jpeg"],
         respuestas: ["Berlín", "Viena", "Zurich"],
-        correcta: 0
+        correcta: 'Berlín'
     },
     {
         pregunta: "¿Cuál es la capital de Guatemala?",
         images: ["imgs/nivel2/imagen_1.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_3.jpeg"],
         respuestas: ["Berlín", "Viena", "Zurich"],
-        correcta: 0
+        correcta: 'Viena'
     },
     {
         pregunta: "¿Cuál es la capital de Alemania?",
         images: ["imgs/nivel2/imagen_1.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_3.jpeg"],
         respuestas: ["Berlín", "Viena", "Zurich"],
-        correcta: 0
+        correcta: 'Zurich'
     },
     {
         pregunta: "¿Cuál es la capital de Alemania?",
         images: ["imgs/nivel2/imagen_1.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_3.jpeg"],
         respuestas: ["Berlín", "Viena", "Zurich"],
-        correcta: 0
+        correcta: 'Viena'
     },
     {
         pregunta: "¿Cuál es la capital de Alemania?",
         images: ["imgs/nivel2/imagen_1.jpeg", "imgs/nivel2/imagen_1.jpeg","imgs/nivel2/imagen_3.jpeg"],
         respuestas: ["Berlín", "Viena", "Zurich"],
-        correcta: 0
+        correcta: 'Viena'
     },
     // Añadir más preguntas según sea necesario
 ];
@@ -406,13 +406,13 @@ function mostrarPregunta(index) {
     preguntaTexto.innerText = pregunta.pregunta;
 
     imagen1.src = pregunta.images[0];
-    imagen1.setAttribute('data-correct', 0 === pregunta.correcta ? 'true' : 'false');
+    imagen1.setAttribute('data-correct', pregunta.respuestas[0] === pregunta.correcta ? 'true' : 'false');
 
     imagen2.src = pregunta.images[1];
-    imagen2.setAttribute('data-correct', 1 === pregunta.correcta ? 'true' : 'false');
+    imagen2.setAttribute('data-correct', pregunta.respuestas[1] === pregunta.correcta ? 'true' : 'false');
 
     imagen3.src = pregunta.images[2];
-    imagen3.setAttribute('data-correct', 2 === pregunta.correcta ? 'true' : 'false');
+    imagen3.setAttribute('data-correct', pregunta.respuestas[2] === pregunta.correcta ? 'true' : 'false');
 
     modal.classList.add('modal_show');
     modal.setAttribute('data-index', index);
